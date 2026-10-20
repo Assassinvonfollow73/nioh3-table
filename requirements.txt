@@ -1,0 +1,8 @@
+# nioh3-table runtime deps
+pymem>=1.12.0
+pywin32>=306
+pyyaml>=6.0.1
+rich>=13.7.0
+keyboard>=0.13.5
+numpy>=1.26.0
+requests>=2.31.0
