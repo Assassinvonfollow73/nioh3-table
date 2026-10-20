@@ -1,0 +1,10 @@
+process_name: nioh3.exe
+max_ki: 100.0
+ammo_max: 99
+amrita_multiplier: 5.0
+log_level: INFO
+hotkeys:
+  godmode: f1
+  infinite_ki: f2
+  ammo_refill: f3
+  amrita_multiplier: f4
