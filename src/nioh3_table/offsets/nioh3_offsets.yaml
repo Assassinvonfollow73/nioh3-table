@@ -1,0 +1,18 @@
+# Nioh 3 pointer table — patch 1.04 (March 2026)
+# chain = [base_offset, ptr_offset_1, ..., final_offset]
+player:
+  hp:
+    base: 0x02A4C1B8
+    chain: [0x18, 0x40, 0x2C8]
+  ki:
+    base: 0x02A4C1B8
+    chain: [0x18, 0x40, 0x2D0]
+  amrita_gain:
+    base: 0x02A4C1B8
+    chain: [0x18, 0x88, 0x1A4]
+ammo:
+  slots:
+    base: 0x02A4C1B8
+    chain: [0x18, 0x40, 0x3A0]
+    stride: 0x8
+    count: 6
