@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nioh 3 Trainer — Cheat Table for Infinite HP, Ki &amp; Amrita</title>
+<meta name="description" content="Nioh 3 Trainer cheat table for Cheat Engine: infinite HP, infinite Ki, max Amrita, one-hit kill, and full item and stat editing.">
+<style>
+  :root{
+    --bg-0:#070912;
+    --bg-1:#0b1024;
+    --bg-2:#131a3a;
+    --indigo:#5b6cff;
+    --violet:#9b5cff;
+    --cyan:#3fd8ff;
+    --ink:#eef1ff;
+    --muted:#9aa3c7;
+    --line:rgba(255,255,255,.09);
+    --card:rgba(255,255,255,.035);
+    --card-hover:rgba(255,255,255,.065);
+    --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    background:
+      radial-gradient(1100px 620px at 12% -8%, rgba(91,108,255,.28), transparent 62%),
+      radial-gradient(900px 560px at 88% 4%, rgba(155,92,255,.22), transparent 60%),
+      radial-gradient(800px 520px at 50% 108%, rgba(63,216,255,.14), transparent 60%),
+      linear-gradient(168deg, var(--bg-0) 0%, var(--bg-1) 42%, #0a0e20 72%, #06070f 100%);
+    background-attachment:fixed;
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{width:min(1120px,92vw);margin:0 auto}
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky;top:0;z-index:100;
+    backdrop-filter:blur(16px) saturate(160%);
+    -webkit-backdrop-filter:blur(16px) saturate(160%);
+    background:rgba(10,13,30,.62);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex;align-items:center;gap:24px;
+    height:68px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.3px;font-size:1.03rem;white-space:nowrap}
+  .brand .mark{
+    width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--indigo),var(--violet));
+    box-shadow:0 0 18px rgba(91,108,255,.55);
+    font-size:.9rem;font-weight:900;color:#fff;
+  }
+  .brand span.sub{color:var(--muted);font-weight:600;font-size:.78rem;letter-spacing:.6px;text-transform:uppercase}
+  .nav-links{display:flex;gap:28px;margin-left:auto;font-size:.92rem;color:var(--muted);font-weight:600}
+  .nav-links a{position:relative;padding:4px 0;transition:color .2s}
+  .nav-links a:hover{color:#fff}
+  .nav-links a::after{
+    content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;
+    background:linear-gradient(90deg,var(--indigo),var(--cyan));border-radius:2px;transition:width .25s;
+  }
+  .nav-links a:hover::after{width:100%}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    font-weight:700;font-size:.95rem;border-radius:12px;
+    padding:12px 22px;border:1px solid transparent;cursor:pointer;
+    transition:transform .18s ease, box-shadow .25s ease, background .25s ease, border-color .25s ease;
+    font-family:inherit;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg,var(--indigo) 0%,var(--violet) 100%);
+    color:#fff;
+    box-shadow:0 10px 30px -8px rgba(91,108,255,.75), inset 0 1px 0 rgba(255,255,255,.25);
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px -8px rgba(120,110,255,.9), inset 0 1px 0 rgba(255,255,255,.3)}
+  .btn-ghost{
+    background:rgba(255,255,255,.04);
+    border-color:rgba(255,255,255,.16);
+    color:var(--ink);
+  }
+  .btn-ghost:hover{background:rgba(255,255,255,.09);transform:translateY(-2px);border-color:rgba(255,255,255,.3)}
+  .btn-nav{padding:10px 20px;font-size:.9rem}
+  .btn-lg{padding:16px 32px;font-size:1.02rem;border-radius:14px}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:86px 0 70px;text-align:center;position:relative}
+  .pill{
+    display:inline-flex;align-items:center;gap:9px;
+    font-size:.78rem;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;
+    color:#c3ccff;padding:8px 16px;border-radius:999px;
+    background:rgba(91,108,255,.12);
+    border:1px solid rgba(120,135,255,.35);
+    box-shadow:0 0 24px -6px rgba(91,108,255,.6) inset;
+  }
+  .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+  h1{
+    margin:24px auto 0;
+    font-size:clamp(2.2rem,6vw,4.15rem);
+    line-height:1.08;letter-spacing:-1.6px;font-weight:900;
+    max-width:16ch;
+  }
+  .grad{
+    background:linear-gradient(100deg,#8ea0ff 0%,#b98cff 38%,#4fe3ff 74%,#8ea0ff 100%);
+    background-size:220% auto;
+    -webkit-background-clip:text;background-clip:text;
+    color:transparent;
+    animation:shift 9s linear infinite;
+  }
+  @keyframes shift{to{background-position:220% center}}
+  .hero p.lead{
+    margin:22px auto 0;max-width:60ch;color:var(--muted);font-size:1.06rem;
+  }
+  .hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+  .stats{
+    display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:44px;
+  }
+  .chip{
+    display:flex;flex-direction:column;align-items:center;gap:2px;
+    padding:12px 22px;border-radius:14px;
+    background:var(--card);border:1px solid var(--line);
+    backdrop-filter:blur(8px);
+    min-width:132px;
+  }
+  .chip b{font-size:.98rem;font-weight:800;letter-spacing:.2px}
+  .chip small{font-size:.7rem;text-transform:uppercase;letter-spacing:1.1px;color:var(--muted);font-weight:700}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:76px 0}
+  .sec-head{text-align:center;max-width:660px;margin:0 auto 48px}
+  .eyebrow{
+    font-size:.74rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+    color:#8b9bff;margin-bottom:12px;
+  }
+  h2{font-size:clamp(1.6rem,3.4vw,2.35rem);letter-spacing:-.7px;line-height:1.15;font-weight:850}
+  .sec-head p{color:var(--muted);margin-top:14px;font-size:.99rem}
+
+  /* ---------- FEATURES ---------- */
+  .grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+  }
+  .card{
+    position:relative;overflow:hidden;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:28px 24px 26px;
+    transition:transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,var(--indigo),var(--violet),var(--cyan));
+    opacity:.85;
+  }
+  .card:hover{
+    transform:translateY(-7px);
+    background:var(--card-hover);
+    border-color:rgba(140,150,255,.32);
+    box-shadow:0 22px 48px -20px rgba(80,90,255,.65);
+  }
+  .card .ico{
+    width:48px;height:48px;border-radius:13px;display:grid;place-items:center;
+    font-size:1.4rem;margin-bottom:16px;
+    background:linear-gradient(140deg,rgba(91,108,255,.22),rgba(155,92,255,.14));
+    border:1px solid rgba(140,150,255,.25);
+  }
+  .card h3{font-size:1.06rem;font-weight:800;margin-bottom:8px;letter-spacing:-.2px}
+  .card p{font-size:.905rem;color:var(--muted);line-height:1.62}
+
+  /* ---------- HOW IT WORKS ---------- */
+  .steps{position:relative;max-width:720px;margin:0 auto;display:grid;gap:8px}
+  .steps::before{
+    content:"";position:absolute;left:27px;top:18px;bottom:18px;width:2px;
+    background:linear-gradient(180deg,var(--indigo),var(--violet),var(--cyan));
+    opacity:.45;border-radius:2px;
+  }
+  .step{
+    position:relative;display:flex;gap:22px;align-items:flex-start;
+    padding:18px 20px;border-radius:14px;
+    transition:background .25s ease;
+  }
+  .step:hover{background:rgba(255,255,255,.035)}
+  .num{
+    flex:0 0 auto;width:56px;height:56px;border-radius:50%;
+    display:grid;place-items:center;font-weight:900;font-size:1.15rem;
+    background:linear-gradient(140deg,#141a3d,#0d1128);
+    border:1px solid rgba(140,150,255,.4);
+    color:#c9d2ff;
+    box-shadow:0 0 0 6px rgba(7,9,18,.9), 0 0 22px -6px rgba(91,108,255,.8);
+    z-index:1;
+  }
+  .step-body h3{font-size:1.03rem;font-weight:800;margin-bottom:5px}
+  .step-body p{font-size:.92rem;color:var(--muted)}
+
+  /* ---------- FAQ ---------- */
+  .faq{max-width:780px;margin:0 auto;display:grid;gap:12px}
+  details{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:0 22px;
+    transition:background .25s ease, border-color .25s ease;
+  }
+  details[open]{background:rgba(255,255,255,.06);border-color:rgba(140,150,255,.3)}
+  details:hover{background:var(--card-hover)}
+  summary{
+    list-style:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:19px 0;font-weight:700;font-size:.99rem;
+    user-select:none;
+  }
+  summary::-webkit-details-marker{display:none}
+  summary .plus{
+    flex:0 0 auto;width:26px;height:26px;position:relative;border-radius:8px;
+    background:rgba(91,108,255,.16);border:1px solid rgba(140,150,255,.3);
+    transition:transform .28s ease, background .25s ease;
+  }
+  summary .plus::before,
+  summary .plus::after{
+    content:"";position:absolute;top:50%;left:50%;background:#b7c2ff;border-radius:2px;
+    transform:translate(-50%,-50%);
+  }
+  summary .plus::before{width:12px;height:2px}
+  summary .plus::after{width:2px;height:12px;transition:opacity .25s ease}
+  details[open] summary .plus{transform:rotate(135deg);background:rgba(155,92,255,.24)}
+  details[open] summary .plus::after{opacity:0}
+  details .answer{padding:0 0 20px;font-size:.925rem;color:var(--muted);line-height:1.68;max-width:64ch}
+  details .answer code{
+    background:rgba(140,150,255,.14);padding:1px 6px;border-radius:5px;
+    font-size:.86em;color:#cfd7ff;font-family:ui-monospace,Consolas,monospace;
+  }
+
+  /* ---------- CTA BANNER ---------- */
+  .cta-band{padding:20px 0 90px}
+  .cta-card{
+    position:relative;overflow:hidden;text-align:center;
+    border-radius:26px;
+    padding:64px 32px;
+    background:
+      radial-gradient(600px 260px at 50% 0%, rgba(120,110,255,.42), transparent 70%),
+      linear-gradient(160deg, rgba(24,30,66,.92), rgba(11,14,32,.96));
+    border:1px solid rgba(140,150,255,.28);
+    box-shadow:0 40px 90px -40px rgba(70,80,255,.75);
+  }
+  .cta-card::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(420px 220px at 50% 120%, rgba(63,216,255,.22), transparent 70%);
+  }
+  .cta-card h2{position:relative;z-index:1;font-size:clamp(1.55rem,3.6vw,2.4rem)}
+  .cta-card p{position:relative;z-index:1;color:var(--muted);margin:14px auto 0;max-width:52ch;font-size:.99rem}
+  .cta-card .hero-actions{position:relative;z-index:1;margin-top:30px}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:34px 0 44px;
+    background:rgba(6,8,18,.6);
+  }
+  .foot{
+    display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+    font-size:.87rem;color:var(--muted);
+  }
+  .foot .fleft{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .foot a{color:#b9c3ff;font-weight:600;border-bottom:1px solid transparent;transition:border-color .2s,color .2s}
+  .foot a:hover{color:#fff;border-color:rgba(185,195,255,.6)}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:960px){
+    .grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:640px){
+    .nav-links{display:none}
+    .nav-inner{height:62px;gap:12px}
+    .btn-nav{padding:9px 16px;font-size:.84rem}
+    .hero{padding:60px 0 50px}
+    .hero p.lead{font-size:.98rem}
+    .grid{grid-template-columns:1fr}
+    section{padding:56px 0}
+    .steps::before{left:23px}
+    .num{width:48px;height:48px;font-size:1rem}
+    .step{padding:14px 10px;gap:16px}
+    .cta-card{padding:46px 22px;border-radius:20px}
+    .foot{flex-direction:column;text-align:center}
+    .stats{gap:10px}
+    .chip{min-width:0;flex:1 1 42%;padding:11px 14px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <span class="mark">仁</span>
+      nioh3-table <span class="sub">Trainer</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a class="btn btn-primary btn-nav" href="https://gitscore.cc" target="_blank" rel="noopener">Download</a>
+  </div>
+</nav>
+
+<main id="top">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="wrap">
+      <span class="pill"><span class="dot"></span>Nioh 3 Trainer · Cheat Engine Table</span>
+      <h1>Master Nioh 3 with <span class="grad">Infinite HP, Ki &amp; Max Amrita</span></h1>
+      <p class="lead">
+        A single Cheat Engine table for Nioh 3 that turns every brutal boss into a fair fight.
+        Lock your HP and Ki, cap out Amrita, enable one-hit kill, and edit items and stats
+        directly from an in-game overlay menu — no memory hacking required.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary btn-lg" href="https://gitscore.cc" target="_blank" rel="noopener">⬇ Download Trainer</a>
+        <a class="btn btn-ghost btn-lg" href="https://gitscore.cc" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+      <div class="stats">
+        <div class="chip"><b>128K+</b><small>Downloads</small></div>
+        <div class="chip"><b>v1.4.2</b><small>Version</small></div>
+        <div class="chip"><b>Windows 10 / 11</b><small>Platform</small></div>
+        <div class="chip"><b>Free &amp; open source</b><small>License</small></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Features</div>
+        <h2>Everything the Nioh 3 Trainer unlocks</h2>
+        <p>Six core cheats built into one lightweight table — toggle each one independently from the Cheat Engine window.</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="ico">❤️</div>
+          <h3>Infinite HP</h3>
+          <p>Freeze your health bar at maximum. Damage registers, animations play, and you never fall — perfect for learning boss patterns without the death loop.</p>
+        </article>
+        <article class="card">
+          <div class="ico">🌀</div>
+          <h3>Infinite Ki</h3>
+          <p>Keep your Ki pool permanently full so you can chain attacks, dodge, and burst counter endlessly. No more stamina management mid-combo.</p>
+        </article>
+        <article class="card">
+          <div class="ico">💎</div>
+          <h3>Max Amrita</h3>
+          <p>Set your Amrita to the cap and level up at the shrine without grinding. Choose any value you like and lock it in place across sessions.</p>
+        </article>
+        <article class="card">
+          <div class="ico">⚔️</div>
+          <h3>One-Hit Kill</h3>
+          <p>Every strike deals lethal damage. Great for farming boss materials, clearing late-game regions, or testing builds without a 40-minute run.</p>
+        </article>
+        <article class="card">
+          <div class="ico">🎒</div>
+          <h3>Item Editing</h3>
+          <p>Add, remove, and duplicate consumables, materials, and upgrade components. Set stack sizes to whatever your inventory can hold.</p>
+        </article>
+        <article class="card">
+          <div class="ico">📊</div>
+          <h3>Stat Editing</h3>
+          <p>Adjust Body, Heart, Courage, and every other core stat directly. Respect the soft caps or ignore them entirely — the table does not judge.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">How it works</div>
+        <h2>Three steps to a fully unlocked save</h2>
+        <p>No installers, no background services, no launcher. Just Cheat Engine and one table file.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="num">1</div>
+          <div class="step-body">
+            <h3>Install Cheat Engine</h3>
+            <p>Grab the latest Cheat Engine build from its official site and install it on Windows 10 or 11. The trainer table requires version 7.4 or newer.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="num">2</div>
+          <div class="step-body">
+            <h3>Load the nioh3-table file</h3>
+            <p>Launch Nioh 3, open Cheat Engine, and drag the downloaded <code>.CT</code> table into the window — or use File → Open. Attach to the <code>nioh3.exe</code> process when prompted.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="num">3</div>
+          <div class="step-body">
+            <h3>Toggle your cheats</h3>
+            <p>Check the boxes for Infinite HP, Infinite Ki, Max Amrita, One-Hit Kill, and the item and stat editors. Changes apply instantly and persist until you uncheck them.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">FAQ</div>
+        <h2>Questions before you download</h2>
+        <p>The short answers. Everything else is covered in the README on the repository.</p>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>Is the Nioh 3 Trainer safe to use? <span class="plus"></span></summary>
+          <div class="answer">
+            The table is a plain-text Cheat Engine script — no compiled executables, DLL injection, or background processes. Every entry is readable in any text editor, so you can audit exactly what each cheat modifies before enabling it.
+          </div>
+        </details>
+        <details>
+          <summary>Does it work in offline mode and with the latest patch? <span class="plus"></span></summary>
+          <div class="answer">
+            Yes. The table is maintained against the current Steam and Epic builds and is intended for offline, single-player use. Pointers are re-scanned after each major game update — if a value reads as <code>???</code>, grab the newest release from the repository.
+          </div>
+        </details>
+        <details>
+          <summary>Will using the trainer get my account banned? <span class="plus"></span></summary>
+          <div class="answer">
+            Cheats are designed for offline play only. Do not use them in online co-op, revenant invasions, or any connected mode — that is
